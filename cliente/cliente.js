@@ -331,9 +331,7 @@ function mostrarDiseñadores(diseñadores) {
 
             tarjeta.innerHTML = `
 
-                <div class="avatar">
-                    🎨
-                </div>
+                <div class="avatar"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.125em" aria-hidden="true"><use href="#i-pen-tool"/></svg></div>
 
                 <div>
 
@@ -344,9 +342,11 @@ function mostrarDiseñadores(diseñadores) {
                     <span class="ocupado">
                         EN ATENCIÓN
                     </span>
-
                     <strong>
                         ${turno.numero}
+                    </strong>
+                    <strong>
+                        ${turno.codigo}
                     </strong>
 
                 </div>
@@ -357,9 +357,7 @@ function mostrarDiseñadores(diseñadores) {
 
             tarjeta.innerHTML = `
 
-                <div class="avatar">
-                    🎨
-                </div>
+                <div class="avatar"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.125em" aria-hidden="true"><use href="#i-pen-tool"/></svg></div>
 
                 <div>
 
@@ -408,6 +406,9 @@ canal.onmessage = function(event) {
     if (
         event.data.tipo ===
         "ACTUALIZAR"
+        ||
+        event.data.tipo ===
+        "NUEVO_TURNO"
     ) {
 
         actualizarPantalla();
@@ -464,3 +465,26 @@ document
 ========================================= */
 
 actualizarPantalla();
+
+
+/* =========================================
+   RESPALDO: EVENTO STORAGE
+   (se dispara cuando OTRA pestaña cambia
+   el localStorage, sin recargar)
+========================================= */
+
+window.addEventListener(
+    "storage",
+    function(event) {
+
+        if (
+            event.key === "turnos_3d" ||
+            event.key === "diseñadores_3d"
+        ) {
+
+            actualizarPantalla();
+
+        }
+
+    }
+);

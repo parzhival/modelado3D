@@ -420,7 +420,7 @@ function actualizarDiseñadores(
             </strong>
 
             <span>
-                🔐 ${turno.codigo}
+                <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.125em" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> ${turno.codigo}
             </span>
 
         `;
@@ -496,7 +496,7 @@ function actualizarCola(
                 </strong>
 
                 <span>
-                    🔐 Código:
+                    <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.125em" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Código:
                     ${turno.codigo}
                 </span>
 
@@ -605,7 +605,7 @@ function actualizarAtencion(
                 </strong>
 
                 <span>
-                    🔐 ${turno.codigo}
+                    <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.125em" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> ${turno.codigo}
                 </span>
 
                 <small>
@@ -718,3 +718,26 @@ function mostrarMensaje(
 ========================================= */
 
 actualizarPantalla();
+
+
+/* =========================================
+   RESPALDO: EVENTO STORAGE
+   (se dispara cuando OTRA pestaña cambia
+   el localStorage, sin recargar)
+========================================= */
+
+window.addEventListener(
+    "storage",
+    function(event) {
+
+        if (
+            event.key === "turnos_3d" ||
+            event.key === "diseñadores_3d"
+        ) {
+
+            actualizarPantalla();
+
+        }
+
+    }
+);
