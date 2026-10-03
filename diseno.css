@@ -996,3 +996,169 @@ body {
     }
 
 }
+
+
+/* =========================================
+   ICONOS (SVG)
+   Heredan el color del texto (currentColor),
+   así que se pintan con la paleta roja.
+========================================= */
+
+.ico {
+
+    width: 1.1em;
+
+    height: 1.1em;
+
+    flex-shrink: 0;
+
+    fill: none;
+
+    stroke: currentColor;
+
+    stroke-width: 2;
+
+    stroke-linecap: round;
+
+    stroke-linejoin: round;
+}
+
+
+.encabezado h1 {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+
+.encabezado h1 .ico {
+
+    width: 1em;
+
+    height: 1em;
+
+    filter:
+        drop-shadow(0 0 8px rgba(255, 0, 0, 0.8));
+}
+
+
+.icono {
+
+    color: var(--rojo-neon);
+}
+
+
+.icono .ico {
+
+    width: 26px;
+
+    height: 26px;
+
+    filter:
+        drop-shadow(0 0 6px rgba(255, 0, 0, 0.6));
+}
+
+
+.estadistica-icono {
+
+    display: flex;
+
+    color: var(--rojo-neon);
+}
+
+
+.estadistica-icono .ico {
+
+    width: 32px;
+
+    height: 32px;
+
+    filter:
+        drop-shadow(0 0 6px rgba(255, 0, 0, 0.5));
+}
+
+
+.avatar {
+
+    color: #ffffff;
+}
+
+
+.avatar .ico {
+
+    width: 28px;
+
+    height: 28px;
+}
+
+
+/* Botones: icono + texto alineados */
+
+.btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+}
+
+
+.btn:disabled {
+
+    opacity: 0.55;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+    filter: none;
+}
+
+
+/* Códigos, diseñador y fecha dentro de las listas */
+
+.codigo-turno,
+.diseñador-turno,
+.cliente-diseñador .codigo {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+}
+
+
+.pantalla-publica .turno p {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    font-size: 14px;
+
+    color: var(--texto-secundario);
+}
+
+
+/* Mensajes con icono */
+
+.mensaje.exito,
+.mensaje.error {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}

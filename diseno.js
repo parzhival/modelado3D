@@ -1,7 +1,39 @@
-
 const canal = new BroadcastChannel(
     "turnos_modelos_3d"
 );
+
+/* =========================================
+   ICONOS (SVG)
+   Los dibujos están definidos al inicio del
+   <body> en diseno.html. Aquí solo se pide
+   el icono por su nombre.
+========================================= */
+
+function icono(nombre) {
+
+    return `<svg class="ico" aria-hidden="true"><use href="#i-${nombre}"/></svg>`;
+
+}
+
+
+/* =========================================
+   NOMBRE DEL DISEÑADOR
+   Evita mostrar "undefined" si un turno
+   no tiene diseñador asignado.
+========================================= */
+
+function nombreDiseñador(id) {
+
+    if (diseñadores[id]) {
+
+        return diseñadores[id].nombre;
+
+    }
+
+    return "Sin asignar";
+
+}
+
 
 
 /* =========================================
@@ -398,7 +430,8 @@ function verificarPago() {
     */
 
     if (
-        diseñadorId !== null
+        diseñadorId !== null &&
+        diseñadores[diseñadorId] !== undefined
     ) {
 
         diseñadores[diseñadorId]
@@ -420,7 +453,7 @@ function verificarPago() {
 
 
     mostrarMensaje(
-        `✓ Pago confirmado para ${turno.numero}. Diseñador ${diseñadorId} liberado.`,
+        `Pago confirmado para ${turno.numero}. ${nombreDiseñador(diseñadorId)} liberado.`,
         "exito"
     );
 
@@ -581,14 +614,14 @@ function actualizarCola() {
 
                 <span class="codigo-turno">
 
-                    🔐 Código:
+                    ${icono("key")} Código:
                     ${turno.codigo}
 
                 </span>
 
                 <span class="diseñador-turno">
 
-                    ${turno.fecha}
+                    ${icono("clock")} ${turno.fecha}
 
                 </span>
 
@@ -685,8 +718,8 @@ function actualizarDiseñador(
             false;
 
 
-        boton.textContent =
-            "Atender siguiente";
+        boton.innerHTML =
+            icono("arrow-right") + " Atender siguiente";
 
 
         return;
@@ -710,6 +743,8 @@ function actualizarDiseñador(
 
         diseñador.turnoId =
             null;
+
+        actualizarDiseñador(diseñadorId);
 
         return;
 
@@ -735,7 +770,7 @@ function actualizarDiseñador(
             <br>
 
             <span class="codigo">
-                🔐 ${turno.codigo}
+                ${icono("key")} ${turno.codigo}
             </span>
 
         </div>
@@ -747,8 +782,8 @@ function actualizarDiseñador(
         true;
 
 
-    boton.textContent =
-        "Cliente en atención";
+    boton.innerHTML =
+        icono("hourglass") + " Cliente en atención";
 
 }
 
@@ -817,16 +852,14 @@ function actualizarAtencion() {
 
                 <span class="codigo-turno">
 
-                    🔐 Código:
+                    ${icono("key")} Código:
                     ${turno.codigo}
 
                 </span>
 
                 <span class="diseñador-turno">
 
-                    👨‍💻
-                    Diseñador
-                    ${turno.diseñadorId}
+                    ${icono("user")} ${nombreDiseñador(turno.diseñadorId)}
 
                 </span>
 
@@ -920,8 +953,7 @@ function actualizarPantallaPublica() {
 
             <p>
 
-                👨‍💻 Diseñador
-                ${turno.diseñadorId}
+                ${icono("user")} ${nombreDiseñador(turno.diseñadorId)}
 
             </p>
 
@@ -1002,8 +1034,23 @@ function mostrarMensaje(
         );
 
 
-    mensaje.textContent =
+    mensaje.innerHTML =
+        icono(
+            tipo === "exito"
+                ? "check"
+                : "alert"
+        );
+
+
+    const contenido =
+        document.createElement("span");
+
+
+    contenido.textContent =
         texto;
+
+
+    mensaje.appendChild(contenido);
 
 
     mensaje.className =
@@ -1021,8 +1068,89 @@ function mostrarMensaje(
 
 
 /* =========================================
+   REPARAR DATOS GUARDADOS
+   Corrige estados incoherentes que pudieron
+   quedar guardados en localStorage con
+   versiones anteriores del código:
+
+   - Un turno "en atención" que ningún
+     diseñador tiene asignado vuelve a la cola.
+   - Un diseñador que apunta a un turno que
+     ya no está en atención queda libre.
+========================================= */
+
+function repararDatos() {
+
+    for (let i = 0; i < turnos.length; i++) {
+
+        const turno = turnos[i];
+
+        if (turno.estado !== "atencion") {
+
+            continue;
+
+        }
+
+        const diseñador =
+            diseñadores[turno.diseñadorId];
+
+        if (
+            !diseñador ||
+            diseñador.turnoId !== turno.id
+        ) {
+
+            turno.estado = "espera";
+
+            turno.diseñadorId = null;
+
+        }
+
+    }
+
+
+    for (const id in diseñadores) {
+
+        const diseñador = diseñadores[id];
+
+        if (diseñador.turnoId === null) {
+
+            continue;
+
+        }
+
+        let valido = false;
+
+        for (let i = 0; i < turnos.length; i++) {
+
+            const turno = turnos[i];
+
+            if (
+                turno.id === diseñador.turnoId &&
+                turno.estado === "atencion" &&
+                String(turno.diseñadorId) === String(id)
+            ) {
+
+                valido = true;
+
+            }
+
+        }
+
+        if (!valido) {
+
+            diseñador.turnoId = null;
+
+        }
+
+    }
+
+}
+
+
+/* =========================================
    INICIAR SISTEMA
 ========================================= */
 
-actualizarPantalla();
+repararDatos();
 
+guardarDatos();
