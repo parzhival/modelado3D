@@ -1,15 +1,8 @@
-/* =========================================
-   BROADCAST CHANNEL
-========================================= */
 
 const canal = new BroadcastChannel(
     "turnos_3d"
 );
 
-
-/* =========================================
-   DATOS
-========================================= */
 
 function obtenerTurnos() {
 
@@ -41,10 +34,6 @@ function obtenerDiseñadores() {
 }
 
 
-/* =========================================
-   GUARDAR
-========================================= */
-
 function guardarDatos(
     turnos,
     diseñadores
@@ -62,11 +51,6 @@ function guardarDatos(
     );
 
 
-    /*
-        Avisamos a cliente.html
-        que hubo cambios.
-    */
-
     canal.postMessage({
 
         tipo: "ACTUALIZAR"
@@ -78,10 +62,6 @@ function guardarDatos(
 
 }
 
-
-/* =========================================
-   ASIGNAR TURNO
-========================================= */
 
 function asignarTurno(
     turnoId,
@@ -95,10 +75,6 @@ function asignarTurno(
     const diseñadores =
         obtenerDiseñadores();
 
-
-    /*
-        Comprobar diseñador
-    */
 
     if (
         diseñadores[diseñadorId]
@@ -115,10 +91,6 @@ function asignarTurno(
     }
 
 
-    /*
-        Buscar turno
-    */
-
     const turno =
         turnos.find(
             t => t.id === turnoId
@@ -131,22 +103,12 @@ function asignarTurno(
 
     }
 
-
-    /*
-        Cambiar estado
-    */
-
     turno.estado =
         "atencion";
 
 
     turno.diseñadorId =
         diseñadorId;
-
-
-    /*
-        Asignar diseñador
-    */
 
     diseñadores[diseñadorId]
         .turnoId =
@@ -166,10 +128,6 @@ function asignarTurno(
 
 }
 
-
-/* =========================================
-   FINALIZAR
-========================================= */
 
 function liberarDiseñador(
     diseñadorId
@@ -203,11 +161,6 @@ function liberarDiseñador(
 
     if (turno) {
 
-        /*
-            El turno queda
-            finalizado.
-        */
-
         turno.estado =
             "finalizado";
 
@@ -216,22 +169,7 @@ function liberarDiseñador(
             null;
 
 
-        /*
-            Aquí posteriormente
-            podemos añadir:
-
-            turno.pagado = true;
-
-            después de validar
-            el código de autenticación.
-        */
-
     }
-
-
-    /*
-        Liberar diseñador
-    */
 
     diseñadores[diseñadorId]
         .turnoId = null;
@@ -249,11 +187,6 @@ function liberarDiseñador(
     );
 
 }
-
-
-/* =========================================
-   ACTUALIZAR PANTALLA
-========================================= */
 
 function actualizarPantalla() {
 
@@ -287,11 +220,6 @@ function actualizarPantalla() {
     );
 
 }
-
-
-/* =========================================
-   ESTADÍSTICAS
-========================================= */
 
 function actualizarEstadisticas(
     turnos
@@ -331,10 +259,6 @@ function actualizarEstadisticas(
 
 }
 
-
-/* =========================================
-   DISEÑADORES
-========================================= */
 
 function actualizarDiseñadores(
     turnos,
@@ -432,11 +356,6 @@ function actualizarDiseñadores(
     });
 
 }
-
-
-/* =========================================
-   COLA DE ESPERA
-========================================= */
 
 function actualizarCola(
     turnos,
@@ -543,11 +462,6 @@ function actualizarCola(
 
 }
 
-
-/* =========================================
-   ATENCIÓN
-========================================= */
-
 function actualizarAtencion(
     turnos
 ) {
@@ -633,11 +547,6 @@ function actualizarAtencion(
 
 }
 
-
-/* =========================================
-   BROADCAST CHANNEL
-========================================= */
-
 canal.onmessage =
     function(event) {
 
@@ -679,11 +588,6 @@ canal.onmessage =
 
     };
 
-
-/* =========================================
-   MENSAJES
-========================================= */
-
 function mostrarMensaje(
     texto,
     tipo
@@ -713,18 +617,8 @@ function mostrarMensaje(
 }
 
 
-/* =========================================
-   INICIO
-========================================= */
-
 actualizarPantalla();
 
-
-/* =========================================
-   RESPALDO: EVENTO STORAGE
-   (se dispara cuando OTRA pestaña cambia
-   el localStorage, sin recargar)
-========================================= */
 
 window.addEventListener(
     "storage",
