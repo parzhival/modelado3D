@@ -1,0 +1,968 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+:root {
+
+    --fondo: #070b17;
+
+    --tarjeta: #111a33;
+
+    --tarjeta2: #182342;
+
+    --borde: #293b68;
+
+    --azul: #00a8ff;
+
+    --cyan: #00f5ff;
+
+    --morado: #8b5cf6;
+
+    --rosa: #ec4899;
+
+    --verde: #00ff9d;
+
+    --amarillo: #ffd000;
+
+    --rojo: #ff3864;
+
+    --texto: #f8fafc;
+
+    --texto-secundario: #94a3b8;
+}
+
+
+body {
+
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at top left,
+            #14245a 0%,
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at bottom right,
+            #351052 0%,
+            transparent 35%
+        ),
+        var(--fondo);
+
+    color: var(--texto);
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+}
+
+
+/* =========================================
+   ENCABEZADO
+========================================= */
+
+.encabezado {
+
+    min-height: 90px;
+
+    padding: 20px 5%;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    border-bottom: 1px solid var(--borde);
+
+    background: rgba(7, 11, 23, 0.9);
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 10;
+
+    backdrop-filter: blur(10px);
+}
+
+
+.encabezado h1 {
+
+    font-size: 28px;
+
+    color: var(--cyan);
+
+    text-shadow:
+        0 0 10px rgba(0, 245, 255, 0.5);
+}
+
+
+.encabezado p {
+
+    margin-top: 5px;
+
+    color: var(--texto-secundario);
+}
+
+
+.estado-sistema {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    color: var(--verde);
+
+    font-size: 13px;
+
+    font-weight: bold;
+}
+
+
+.indicador {
+
+    width: 10px;
+
+    height: 10px;
+
+    border-radius: 50%;
+
+    background: var(--verde);
+
+    box-shadow:
+        0 0 12px var(--verde);
+}
+
+
+/* =========================================
+   CONTENEDOR
+========================================= */
+
+.contenedor {
+
+    width: 92%;
+
+    max-width: 1250px;
+
+    margin: 35px auto;
+}
+
+
+/* =========================================
+   PANELES
+========================================= */
+
+.panel {
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(17, 26, 51, 0.96),
+            rgba(10, 16, 35, 0.96)
+        );
+
+    border: 1px solid var(--borde);
+
+    border-radius: 18px;
+
+    padding: 25px;
+
+    margin-bottom: 25px;
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.25);
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+
+.panel::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 120px;
+
+    height: 3px;
+
+    top: 0;
+
+    left: 30px;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--cyan),
+            var(--morado),
+            var(--rosa)
+        );
+}
+
+
+/* =========================================
+   TITULOS
+========================================= */
+
+.titulo-panel {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 22px;
+}
+
+
+.icono {
+
+    width: 50px;
+
+    height: 50px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(0, 168, 255, 0.2),
+            rgba(139, 92, 246, 0.2)
+        );
+
+    border: 1px solid var(--borde);
+
+    font-size: 25px;
+}
+
+
+.titulo-panel h2 {
+
+    font-size: 20px;
+}
+
+
+.titulo-panel p {
+
+    color: var(--texto-secundario);
+
+    font-size: 14px;
+
+    margin-top: 4px;
+}
+
+
+/* =========================================
+   BOTONES
+========================================= */
+
+.btn {
+
+    border: none;
+
+    border-radius: 10px;
+
+    padding: 13px 20px;
+
+    color: white;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.25s;
+}
+
+
+.btn:hover {
+
+    transform: translateY(-2px);
+
+    filter: brightness(1.15);
+}
+
+
+.btn-principal {
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--azul),
+            var(--morado)
+        );
+
+    box-shadow:
+        0 5px 20px rgba(0, 168, 255, 0.25);
+}
+
+
+.btn-secundario {
+
+    width: 100%;
+
+    margin-top: 15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--morado),
+            var(--rosa)
+        );
+}
+
+
+.btn-pago {
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--verde),
+            #00b878
+        );
+
+    color: #001b12;
+}
+
+
+/* =========================================
+   TURNO GENERADO
+========================================= */
+
+.turno-generado {
+
+    margin-top: 25px;
+
+    padding: 25px;
+
+    border-radius: 15px;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(0, 168, 255, 0.1),
+            rgba(139, 92, 246, 0.15)
+        );
+
+    border: 1px solid var(--azul);
+}
+
+
+.turno-generado strong {
+
+    display: block;
+
+    font-size: 42px;
+
+    margin: 10px 0;
+
+    color: var(--cyan);
+
+    text-shadow:
+        0 0 15px rgba(0, 245, 255, 0.5);
+}
+
+
+.turno-generado .codigo {
+
+    color: var(--amarillo);
+
+    letter-spacing: 8px;
+}
+
+
+.turno-generado small {
+
+    display: block;
+
+    color: var(--texto-secundario);
+
+    margin-top: 15px;
+}
+
+
+.oculto {
+
+    display: none;
+}
+
+
+/* =========================================
+   ESTADÍSTICAS
+========================================= */
+
+.estadisticas {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 18px;
+
+    margin-bottom: 25px;
+}
+
+
+.estadistica {
+
+    background: var(--tarjeta);
+
+    border: 1px solid var(--borde);
+
+    border-radius: 15px;
+
+    padding: 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+}
+
+
+.estadistica-icono {
+
+    font-size: 30px;
+}
+
+
+.estadistica strong {
+
+    font-size: 30px;
+
+    color: var(--cyan);
+}
+
+
+.estadistica p {
+
+    color: var(--texto-secundario);
+
+    font-size: 13px;
+}
+
+
+/* =========================================
+   DISEÑADORES
+========================================= */
+
+.diseñadores-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 20px;
+}
+
+
+.diseñador-card {
+
+    background:
+        linear-gradient(
+            145deg,
+            #141f3d,
+            #10172d
+        );
+
+    border: 1px solid var(--borde);
+
+    border-radius: 15px;
+
+    padding: 20px;
+
+    transition: 0.25s;
+}
+
+
+.diseñador-card:hover {
+
+    border-color: var(--cyan);
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 10px 30px rgba(0, 245, 255, 0.08);
+}
+
+
+.diseñador-header {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+}
+
+
+.avatar {
+
+    width: 55px;
+
+    height: 55px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--azul),
+            var(--morado)
+        );
+
+    border-radius: 50%;
+
+    font-size: 27px;
+}
+
+
+.diseñador-header h3 {
+
+    margin-bottom: 7px;
+}
+
+
+.estado {
+
+    display: inline-block;
+
+    padding: 5px 10px;
+
+    border-radius: 20px;
+
+    font-size: 10px;
+
+    font-weight: bold;
+}
+
+
+.estado.disponible {
+
+    color: var(--verde);
+
+    border: 1px solid var(--verde);
+
+    background:
+        rgba(0, 255, 157, 0.08);
+}
+
+
+.estado.ocupado {
+
+    color: var(--amarillo);
+
+    border: 1px solid var(--amarillo);
+
+    background:
+        rgba(255, 208, 0, 0.08);
+}
+
+
+.cliente-diseñador {
+
+    margin-top: 20px;
+
+    padding: 15px;
+
+    border-radius: 10px;
+
+    background: #0a1125;
+
+    border: 1px solid var(--borde);
+
+    min-height: 80px;
+
+    display: flex;
+
+    align-items: center;
+}
+
+
+.cliente-diseñador strong {
+
+    color: var(--cyan);
+
+    font-size: 25px;
+}
+
+
+.cliente-diseñador .codigo {
+
+    color: var(--amarillo);
+
+    font-weight: bold;
+
+    letter-spacing: 3px;
+}
+
+
+/* =========================================
+   LISTAS DE TURNOS
+========================================= */
+
+.lista {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+}
+
+
+.turno {
+
+    padding: 17px;
+
+    border-radius: 12px;
+
+    background: var(--tarjeta2);
+
+    border: 1px solid var(--borde);
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 15px;
+}
+
+
+.turno strong {
+
+    font-size: 22px;
+
+    color: var(--cyan);
+}
+
+
+.informacion-turno {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+
+.codigo-turno {
+
+    color: var(--amarillo);
+
+    font-weight: bold;
+
+    letter-spacing: 3px;
+
+    font-size: 14px;
+}
+
+
+.diseñador-turno {
+
+    color: var(--texto-secundario);
+
+    font-size: 13px;
+}
+
+
+.estado.espera {
+
+    background:
+        rgba(255, 208, 0, 0.15);
+
+    color: var(--amarillo);
+
+    border: 1px solid var(--amarillo);
+}
+
+
+.estado.atencion {
+
+    background:
+        rgba(0, 168, 255, 0.15);
+
+    color: var(--cyan);
+
+    border: 1px solid var(--cyan);
+}
+
+
+.vacio {
+
+    text-align: center;
+
+    padding: 30px;
+
+    color: var(--texto-secundario);
+}
+
+
+/* =========================================
+   PAGO
+========================================= */
+
+.formulario-pago {
+
+    display: flex;
+
+    gap: 10px;
+}
+
+
+.formulario-pago input {
+
+    flex: 1;
+
+    padding: 14px;
+
+    border-radius: 10px;
+
+    border: 1px solid var(--borde);
+
+    outline: none;
+
+    background: #080e20;
+
+    color: white;
+
+    font-size: 15px;
+
+    text-transform: uppercase;
+}
+
+
+.formulario-pago input:focus {
+
+    border-color: var(--cyan);
+
+    box-shadow:
+        0 0 12px rgba(0, 245, 255, 0.15);
+}
+
+
+/* =========================================
+   MENSAJES
+========================================= */
+
+.mensaje {
+
+    margin-top: 15px;
+
+    padding: 14px;
+
+    border-radius: 10px;
+
+    display: none;
+}
+
+
+.mensaje.exito {
+
+    display: block;
+
+    background:
+        rgba(0, 255, 157, 0.12);
+
+    border: 1px solid var(--verde);
+
+    color: var(--verde);
+}
+
+
+.mensaje.error {
+
+    display: block;
+
+    background:
+        rgba(255, 56, 100, 0.12);
+
+    border: 1px solid var(--rojo);
+
+    color: #ff6b89;
+}
+
+
+/* =========================================
+   PANTALLA PÚBLICA
+========================================= */
+
+.pantalla-publica {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 15px;
+}
+
+
+.pantalla-publica .turno {
+
+    flex-direction: column;
+
+    text-align: center;
+
+    padding: 25px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #101d40,
+            #241044
+        );
+}
+
+
+.pantalla-publica .turno strong {
+
+    font-size: 48px;
+
+    color: var(--cyan);
+
+    text-shadow:
+        0 0 20px rgba(0, 245, 255, 0.5);
+}
+
+
+/* =========================================
+   RESPONSIVE TABLET
+========================================= */
+
+@media (max-width: 850px) {
+
+    .diseñadores-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .pantalla-publica {
+
+        grid-template-columns: 1fr;
+
+    }
+
+}
+
+
+/* =========================================
+   RESPONSIVE CELULAR
+========================================= */
+
+@media (max-width: 600px) {
+
+    .encabezado {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 15px;
+
+        padding: 18px;
+
+    }
+
+
+    .encabezado h1 {
+
+        font-size: 22px;
+
+    }
+
+
+    .contenedor {
+
+        width: 94%;
+
+        margin: 20px auto;
+
+    }
+
+
+    .panel {
+
+        padding: 18px;
+
+        border-radius: 14px;
+
+    }
+
+
+    .estadisticas {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .formulario-pago {
+
+        flex-direction: column;
+
+    }
+
+
+    .formulario-pago input,
+    .formulario-pago button {
+
+        width: 100%;
+
+    }
+
+
+    .turno {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+    }
+
+
+    .turno-generado strong {
+
+        font-size: 35px;
+
+    }
+
+
+    .pantalla-publica .turno strong {
+
+        font-size: 40px;
+
+    }
+
+}
