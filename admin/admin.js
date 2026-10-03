@@ -1,9 +1,15 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> dev-JOSUE
 const canal = new BroadcastChannel(
     "turnos_3d"
 );
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> dev-JOSUE
 function obtenerTurnos() {
 
     return JSON.parse(
@@ -62,7 +68,10 @@ function guardarDatos(
 
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> dev-JOSUE
 function asignarTurno(
     turnoId,
     diseñadorId
@@ -75,7 +84,10 @@ function asignarTurno(
     const diseñadores =
         obtenerDiseñadores();
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> dev-JOSUE
     if (
         diseñadores[diseñadorId]
             .turnoId !== null
@@ -219,8 +231,26 @@ function actualizarPantalla() {
         turnos
     );
 
+        actualizarAtencion(
+        turnos
+    );
+
+
+    actualizarFinalizados(
+        turnos
+    );
+
 }
 
+<<<<<<< HEAD
+=======
+
+
+/* =========================================
+   ESTADÍSTICAS
+========================================= */
+
+>>>>>>> dev-JOSUE
 function actualizarEstadisticas(
     turnos
 ) {
@@ -462,6 +492,10 @@ function actualizarCola(
 
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> dev-JOSUE
 function actualizarAtencion(
     turnos
 ) {
@@ -616,10 +650,15 @@ function mostrarMensaje(
 
 }
 
+<<<<<<< HEAD
 
 actualizarPantalla();
 
 
+=======
+actualizarPantalla();
+
+>>>>>>> dev-JOSUE
 window.addEventListener(
     "storage",
     function(event) {
@@ -635,3 +674,118 @@ window.addEventListener(
 
     }
 );
+
+
+function obtenerClientesFinalizados(
+    turnos
+) {
+
+    const finalizados = [];
+
+    for (
+        let i = turnos.length - 1;
+        i >= 0;
+        i--
+    ) {
+
+        if (
+            turnos[i].estado === "finalizado"
+        ) {
+
+            finalizados.push(
+                turnos[i]
+            );
+
+        }
+
+    }
+
+
+    return finalizados;
+
+}
+
+
+function actualizarFinalizados(
+    turnos
+) {
+
+    const contenedor =
+        document.querySelector(
+            ".lista-finalizados"
+        );
+
+
+    const finalizados =
+        obtenerClientesFinalizados(
+            turnos
+        );
+
+
+    contenedor.innerHTML = "";
+
+
+    if (finalizados.length === 0) {
+
+        contenedor.innerHTML = `
+
+            <div class="vacio">
+
+                No hay clientes finalizados.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    finalizados.forEach(turno => {
+
+        const elemento =
+            document.createElement(
+                "div"
+            );
+
+
+        elemento.className =
+            "turno finalizado-card";
+
+
+        elemento.innerHTML = `
+
+            <div class="datos-turno">
+
+                <strong>
+                    ${turno.numero}
+                </strong>
+
+                <span>
+                    <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.125em" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> ${turno.codigo}
+                </span>
+
+                <small>
+                    ${turno.fecha}
+                </small>
+
+            </div>
+
+
+            <span class="badge badge-finalizado">
+
+                FINALIZADO
+
+            </span>
+
+        `;
+
+
+        contenedor.appendChild(
+            elemento
+        );
+
+    });
+
+}
