@@ -1,15 +1,10 @@
-/* =========================================
-   CANAL DE COMUNICACIÓN
-========================================= */
+
 
 const canal = new BroadcastChannel(
     "turnos_3d"
 );
 
 
-/* =========================================
-   OBTENER DATOS
-========================================= */
 
 function obtenerTurnos() {
 
@@ -41,27 +36,17 @@ function obtenerDiseñadores() {
 }
 
 
-/* =========================================
-   GENERAR TURNO
-========================================= */
+
 
 function generarTurno() {
 
     let turnos = obtenerTurnos();
 
-    /* =========================================
-       CONTAR CLIENTES EN ESPERA
-    ========================================= */
+    
 
     const esperando = turnos.filter(
         turno => turno.estado === "espera"
     );
-
-
-    /*
-        Solo permitimos máximo
-        3 clientes esperando.
-    */
 
     if (esperando.length >= 3) {
 
@@ -72,11 +57,6 @@ function generarTurno() {
 
         return;
     }
-
-
-    /* =========================================
-       GENERAR NÚMERO DE TURNO
-    ========================================= */
 
     let ultimoNumero = 0;
 
@@ -102,18 +82,8 @@ function generarTurno() {
         String(ultimoNumero + 1)
             .padStart(3, "0");
 
-
-    /* =========================================
-       GENERAR CÓDIGO
-    ========================================= */
-
     const codigo =
         generarCodigo(turnos);
-
-
-    /* =========================================
-       CREAR NUEVO TURNO
-    ========================================= */
 
     const nuevoTurno = {
 
@@ -134,26 +104,15 @@ function generarTurno() {
     };
 
 
-    /* =========================================
-       AGREGAR A LA LISTA
-    ========================================= */
-
     turnos.push(nuevoTurno);
 
 
-    /* =========================================
-       GUARDAR EN LOCALSTORAGE
-    ========================================= */
 
     localStorage.setItem(
         "turnos_3d",
         JSON.stringify(turnos)
     );
 
-
-    /* =========================================
-       AVISAR AL ADMINISTRADOR
-    ========================================= */
 
     canal.postMessage({
 
@@ -163,10 +122,6 @@ function generarTurno() {
 
     });
 
-
-    /* =========================================
-       MOSTRAR EL TURNO GENERADO
-    ========================================= */
 
     document
         .getElementById("informacionTurno")
@@ -186,11 +141,6 @@ function generarTurno() {
         nuevoTurno.codigo;
 
 
-    /* =========================================
-       IMPORTANTE:
-       NO DESHABILITAMOS EL BOTÓN
-    ========================================= */
-
     document
         .getElementById("btnAgendar")
         .disabled = false;
@@ -202,18 +152,11 @@ function generarTurno() {
     );
 
 
-    /* =========================================
-       ACTUALIZAR PANTALLA
-    ========================================= */
-
     actualizarPantalla();
 
 }
 
 
-/* =========================================
-   GENERAR CÓDIGO
-========================================= */
 
 function generarCodigo(turnos) {
 
@@ -252,10 +195,6 @@ function generarCodigo(turnos) {
 }
 
 
-/* =========================================
-   ACTUALIZAR PANTALLA
-========================================= */
-
 function actualizarPantalla() {
 
     const turnos = obtenerTurnos();
@@ -290,10 +229,6 @@ function actualizarPantalla() {
 
 }
 
-
-/* =========================================
-   MOSTRAR DISEÑADORES
-========================================= */
 
 function mostrarDiseñadores(diseñadores) {
 
@@ -383,25 +318,12 @@ function mostrarDiseñadores(diseñadores) {
 }
 
 
-/* =========================================
-   RECIBIR MENSAJES
-========================================= */
-
 canal.onmessage = function(event) {
 
     console.log(
         "Mensaje recibido:",
         event.data
     );
-
-
-    /*
-        El administrador puede
-        modificar los turnos.
-
-        Cuando eso ocurre,
-        actualizamos la pantalla.
-    */
 
     if (
         event.data.tipo ===
@@ -417,10 +339,6 @@ canal.onmessage = function(event) {
 
 };
 
-
-/* =========================================
-   MENSAJES
-========================================= */
 
 function mostrarMensaje(
     texto,
@@ -448,10 +366,6 @@ function mostrarMensaje(
 }
 
 
-/* =========================================
-   BOTÓN
-========================================= */
-
 document
     .getElementById("btnAgendar")
     .addEventListener(
@@ -459,19 +373,8 @@ document
         generarTurno
     );
 
-
-/* =========================================
-   INICIO
-========================================= */
-
 actualizarPantalla();
 
-
-/* =========================================
-   RESPALDO: EVENTO STORAGE
-   (se dispara cuando OTRA pestaña cambia
-   el localStorage, sin recargar)
-========================================= */
 
 window.addEventListener(
     "storage",
