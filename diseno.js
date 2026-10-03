@@ -4,19 +4,11 @@ const canal = new BroadcastChannel(
 );
 
 
-/* =========================================
-   TURNOS
-========================================= */
-
 let turnos =
     JSON.parse(
         localStorage.getItem("turnos")
     ) || [];
 
-
-/* =========================================
-   DISEÑADORES
-========================================= */
 
 let diseñadores =
     JSON.parse(
@@ -36,16 +28,8 @@ let diseñadores =
     };
 
 
-/* =========================================
-   GENERAR NÚMERO DE TURNO
-========================================= */
-
 function generarNumeroTurno() {
 
-    /*
-        Buscamos el número más alto
-        para evitar repetir turnos.
-    */
 
     let mayor = 0;
 
@@ -71,11 +55,6 @@ function generarNumeroTurno() {
         String(mayor + 1).padStart(3, "0");
 
 }
-
-
-/* =========================================
-   GENERAR CÓDIGO
-========================================= */
 
 function generarCodigo() {
 
@@ -115,16 +94,8 @@ function generarCodigo() {
 }
 
 
-/* =========================================
-   GENERAR TURNO
-========================================= */
-
 function generarTurno() {
 
-    /*
-        Revisamos cuántos clientes
-        están esperando.
-    */
 
     const esperando =
         turnos.filter(
@@ -132,10 +103,6 @@ function generarTurno() {
                 turno.estado === "espera"
         );
 
-
-    /*
-        Máximo 3 clientes en espera.
-    */
 
     if (esperando.length >= 3) {
 
@@ -182,11 +149,6 @@ function generarTurno() {
     enviarActualizacion();
 
 
-    /*
-        Mostrar información
-        al cliente.
-    */
-
     document
         .getElementById(
             "turnoGenerado"
@@ -212,18 +174,10 @@ function generarTurno() {
 }
 
 
-/* =========================================
-   TOMAR SIGUIENTE TURNO
-========================================= */
-
 function tomarSiguienteTurno(
     diseñadorId
 ) {
 
-    /*
-        Revisamos si el diseñador
-        ya está ocupado.
-    */
 
     if (
         diseñadores[diseñadorId]
@@ -238,12 +192,6 @@ function tomarSiguienteTurno(
         return;
 
     }
-
-
-    /*
-        Buscamos el primer cliente
-        de la cola.
-    */
 
     const siguiente =
         turnos.find(
@@ -263,11 +211,6 @@ function tomarSiguienteTurno(
 
     }
 
-
-    /*
-        Cambiamos el estado.
-    */
-
     siguiente.estado =
         "atencion";
 
@@ -275,10 +218,6 @@ function tomarSiguienteTurno(
     siguiente.diseñadorId =
         diseñadorId;
 
-
-    /*
-        Ocupamos al diseñador.
-    */
 
     diseñadores[diseñadorId]
         .turnoId =
@@ -297,10 +236,6 @@ function tomarSiguienteTurno(
 
 }
 
-
-/* =========================================
-   VERIFICAR PAGO
-========================================= */
 
 function verificarPago() {
 
@@ -328,11 +263,6 @@ function verificarPago() {
     }
 
 
-    /*
-        Buscamos el turno
-        utilizando el código.
-    */
-
     const turno =
         turnos.find(
             turno =>
@@ -352,11 +282,6 @@ function verificarPago() {
     }
 
 
-    /*
-        El turno debe estar
-        siendo atendido.
-    */
-
     if (
         turno.estado !==
         "atencion"
@@ -372,18 +297,9 @@ function verificarPago() {
     }
 
 
-    /*
-        Guardamos quién es
-        el diseñador.
-    */
-
+    
     const diseñadorId =
         turno.diseñadorId;
-
-
-    /*
-        Registramos el pago.
-    */
 
     turno.pagado =
         true;
@@ -392,10 +308,6 @@ function verificarPago() {
     turno.estado =
         "finalizado";
 
-
-    /*
-        Liberamos el diseñador.
-    */
 
     if (
         diseñadorId !== null
@@ -427,10 +339,6 @@ function verificarPago() {
 }
 
 
-/* =========================================
-   GUARDAR DATOS
-========================================= */
-
 function guardarDatos() {
 
     localStorage.setItem(
@@ -450,10 +358,6 @@ function guardarDatos() {
 }
 
 
-/* =========================================
-   BROADCAST
-========================================= */
-
 function enviarActualizacion() {
 
     canal.postMessage({
@@ -472,11 +376,8 @@ function enviarActualizacion() {
 }
 
 
-/* =========================================
-   RECIBIR CAMBIOS
-========================================= */
-
 canal.onmessage =
+
     function(event) {
 
         if (
@@ -498,11 +399,6 @@ canal.onmessage =
 
     };
 
-
-/* =========================================
-   ACTUALIZAR TODA LA INTERFAZ
-========================================= */
-
 function actualizarPantalla() {
 
     actualizarCola();
@@ -517,10 +413,6 @@ function actualizarPantalla() {
 
 }
 
-
-/* =========================================
-   ACTUALIZAR COLA
-========================================= */
 
 function actualizarCola() {
 
@@ -581,7 +473,7 @@ function actualizarCola() {
 
                 <span class="codigo-turno">
 
-                    🔐 Código:
+                    Código:
                     ${turno.codigo}
 
                 </span>
@@ -613,10 +505,6 @@ function actualizarCola() {
 }
 
 
-/* =========================================
-   ACTUALIZAR DISEÑADORES
-========================================= */
-
 function actualizarDiseñadores() {
 
     actualizarDiseñador(1);
@@ -625,10 +513,6 @@ function actualizarDiseñadores() {
 
 }
 
-
-/* =========================================
-   ACTUALIZAR UN DISEÑADOR
-========================================= */
 
 function actualizarDiseñador(
     diseñadorId
@@ -655,10 +539,6 @@ function actualizarDiseñador(
             `btnDiseñador${diseñadorId}`
         );
 
-
-    /*
-        Si no tiene cliente.
-    */
 
     if (
         diseñador.turnoId === null
@@ -735,7 +615,7 @@ function actualizarDiseñador(
             <br>
 
             <span class="codigo">
-                🔐 ${turno.codigo}
+                ${turno.codigo}
             </span>
 
         </div>
@@ -752,10 +632,6 @@ function actualizarDiseñador(
 
 }
 
-
-/* =========================================
-   TURNOS EN ATENCIÓN
-========================================= */
 
 function actualizarAtencion() {
 
@@ -817,14 +693,13 @@ function actualizarAtencion() {
 
                 <span class="codigo-turno">
 
-                    🔐 Código:
+                    Código:
                     ${turno.codigo}
 
                 </span>
 
                 <span class="diseñador-turno">
 
-                    👨‍💻
                     Diseñador
                     ${turno.diseñadorId}
 
@@ -850,10 +725,6 @@ function actualizarAtencion() {
 
 }
 
-
-/* =========================================
-   PANTALLA PÚBLICA
-========================================= */
 
 function actualizarPantallaPublica() {
 
@@ -920,7 +791,7 @@ function actualizarPantallaPublica() {
 
             <p>
 
-                👨‍💻 Diseñador
+                Diseñador
                 ${turno.diseñadorId}
 
             </p>
@@ -935,11 +806,6 @@ function actualizarPantallaPublica() {
     });
 
 }
-
-
-/* =========================================
-   ESTADÍSTICAS
-========================================= */
 
 function actualizarEstadisticas() {
 
@@ -986,11 +852,6 @@ function actualizarEstadisticas() {
 
 }
 
-
-/* =========================================
-   MENSAJES
-========================================= */
-
 function mostrarMensaje(
     texto,
     tipo
@@ -1018,11 +879,6 @@ function mostrarMensaje(
     }, 4000);
 
 }
-
-
-/* =========================================
-   INICIAR SISTEMA
-========================================= */
 
 actualizarPantalla();
 
