@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Turnos 3D - Cliente</title>
+
+    <link rel="stylesheet" href="cliente.css">
+
+</head>
+
+<body>
+
+    <header class="header">
+
+        <div>
+            <h1>⚡ TURNOS 3D</h1>
+            <p>Sistema de atención</p>
+        </div>
+
+        <div class="estado-online">
+            <span></span>
+            SISTEMA ONLINE
+        </div>
+
+    </header>
+
+
+    <main class="contenedor">
+
+        <section class="tarjeta principal">
+
+            <div class="icono">
+                🎟️
+            </div>
+
+            <h2>
+                Solicita tu turno
+            </h2>
+
+            <p class="descripcion">
+                Obtén un turno para ser atendido
+                por uno de nuestros diseñadores.
+            </p>
+
+
+            <button
+                id="btnAgendar"
+                class="btn-principal">
+
+                🎟️ AGENDAR TURNO
+
+            </button>
+
+
+            <!-- INFORMACIÓN DEL TURNO -->
+
+            <div
+                id="informacionTurno"
+                class="informacion-turno oculto">
+
+                <p>Tu turno es:</p>
+
+                <h3 id="numeroTurno">
+                    T-000
+                </h3>
+
+                <p>
+                    Código de autenticación
+                </p>
+
+                <div
+                    id="codigoTurno"
+                    class="codigo">
+
+                    XXXXX
+
+                </div>
+
+                <div class="advertencia">
+
+                    🔐 Guarda este código.
+                    Lo necesitarás para verificar
+                    tu pago.
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ESTADO DE LA COLA -->
+
+        <section class="estadisticas">
+
+            <div class="estadistica">
+
+                <span>⏳</span>
+
+                <strong id="clientesEspera">
+                    0
+                </strong>
+
+                <p>
+                    Clientes en espera
+                </p>
+
+            </div>
+
+
+            <div class="estadistica">
+
+                <span>🎨</span>
+
+                <strong id="clientesAtencion">
+                    0
+                </strong>
+
+                <p>
+                    Siendo atendidos
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- DISEÑADORES -->
+
+        <section class="tarjeta">
+
+            <h2>
+                👨‍🎨 Diseñadores atendiendo
+            </h2>
+
+            <div
+                id="diseñadores"
+                class="diseñadores">
+
+            </div>
+
+        </section>
+
+
+        <div
+            id="mensaje"
+            class="mensaje">
+
+        </div>
+
+    </main>
+
+
+    <script src="cliente.js"></script>
+
+</body>
+
+</html>

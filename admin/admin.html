@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Turnos 3D - Administrador</title>
+
+    <link rel="stylesheet"
+          href="admin.css">
+
+</head>
+
+<body>
+
+    <header class="header">
+
+        <div>
+
+            <h1>⚡ TURNOS 3D</h1>
+
+            <p>
+                Panel de administración
+            </p>
+
+        </div>
+
+        <div class="estado">
+            ● ADMINISTRADOR
+        </div>
+
+    </header>
+
+
+    <main class="contenedor">
+
+
+        <!-- ESTADÍSTICAS -->
+
+        <section class="estadisticas">
+
+            <div class="estadistica">
+
+                <span>⏳</span>
+
+                <strong id="totalEspera">
+                    0
+                </strong>
+
+                <p>
+                    En espera
+                </p>
+
+            </div>
+
+
+            <div class="estadistica">
+
+                <span>🎨</span>
+
+                <strong id="totalAtencion">
+                    0
+                </strong>
+
+                <p>
+                    En atención
+                </p>
+
+            </div>
+
+
+            <div class="estadistica">
+
+                <span>✓</span>
+
+                <strong id="totalFinalizados">
+                    0
+                </strong>
+
+                <p>
+                    Finalizados
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- DISEÑADORES -->
+
+        <section class="panel">
+
+            <h2>
+                👨‍🎨 Diseñadores
+            </h2>
+
+
+            <div class="diseñadores">
+
+
+                <!-- DISEÑADOR 1 -->
+
+                <div
+                    id="diseñador1"
+                    class="diseñador">
+
+                    <div class="avatar">
+                        👨‍🎨
+                    </div>
+
+                    <div class="info-diseñador">
+
+                        <h3>
+                            Diseñador 1
+                        </h3>
+
+                        <span
+                            id="estado1"
+                            class="disponible">
+
+                            DISPONIBLE
+
+                        </span>
+
+                        <div
+                            id="cliente1"
+                            class="cliente">
+
+                            Sin cliente
+
+                        </div>
+
+                    </div>
+
+                    <button
+                        id="liberar1"
+                        class="btn-liberar"
+                        onclick="liberarDiseñador(1)"
+                        disabled>
+
+                        Finalizar
+
+                    </button>
+
+                </div>
+
+
+
+                <!-- DISEÑADOR 2 -->
+
+                <div
+                    id="diseñador2"
+                    class="diseñador">
+
+                    <div class="avatar">
+                        🎨
+                    </div>
+
+                    <div class="info-diseñador">
+
+                        <h3>
+                            Diseñador 2
+                        </h3>
+
+                        <span
+                            id="estado2"
+                            class="disponible">
+
+                            DISPONIBLE
+
+                        </span>
+
+                        <div
+                            id="cliente2"
+                            class="cliente">
+
+                            Sin cliente
+
+                        </div>
+
+                    </div>
+
+                    <button
+                        id="liberar2"
+                        class="btn-liberar"
+                        onclick="liberarDiseñador(2)"
+                        disabled>
+
+                        Finalizar
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- COLA -->
+
+        <section class="panel">
+
+            <div class="titulo">
+
+                <div>
+
+                    <h2>
+                        ⏳ Cola de espera
+                    </h2>
+
+                    <p>
+                        Máximo 3 clientes
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="cola"
+                class="cola">
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ATENCIÓN -->
+
+        <section class="panel">
+
+            <h2>
+                🎨 Clientes en atención
+            </h2>
+
+            <div
+                id="atencion"
+                class="cola">
+
+            </div>
+
+        </section>
+
+
+        <div
+            id="mensaje"
+            class="mensaje">
+
+        </div>
+
+    </main>
+
+
+    <script src="admin.js"></script>
+
+</body>
+
+</html>
